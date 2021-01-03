@@ -8,6 +8,7 @@
 }
 else
 {
+    <table class="table">
     <div>
         <ul>
             @foreach (Employer employer in Model)
@@ -15,7 +16,11 @@ else
                 <li>
                     <a asp-controller="Employer" asp-action="About" asp-route-id="@employer.Id">@employer.Name</a>
                 </li>
+                <li>
+                    <a asp-controller="Employer" asp-action="About" asp-route-id="@employer.Id">@employer.Location</a>
+                </li>
             }
         </ul>
     </div>
+    </table>
 }
