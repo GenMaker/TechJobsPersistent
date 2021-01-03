@@ -14,11 +14,11 @@ namespace TechJobsPersistent.Controllers
 {
     public class EmployerController : Controller
     {
-        private EmployerDbContext context;
+        private JobDbContext context;
 
         //public Employer newEmployer { get; private set; }
 
-        public EmployerController(EmployerDbContext dbContext )
+        public EmployerController(JobDbContext dbContext )
         {
             context = dbContext;
         }
@@ -26,8 +26,8 @@ namespace TechJobsPersistent.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Employer> employer = context.Employer.ToList();
-            return View(employer);
+            List<Employer> employers = context.Employers.ToList();
+            return View(employers);
         }
 
         public IActionResult Add()
@@ -37,31 +37,35 @@ namespace TechJobsPersistent.Controllers
             return View(addEmployerViewModel);
         }
 
+        
         [HttpPost]
-        public IActionResult Add(AddEmployerViewModel addEmployerViewModel)
+        public IActionResult ProcessAddEmployerForm(AddEmployerViewModel viewModel)
         {
-            if (ModelState.IsValid)
             {
-                Employer newEmployer = new Employer
-                {
-                    Name = addEmployerViewModel.Name,
-                    Location = addEmployerViewModel.Location,
-                };
-                context.Employer.Add(newEmployer);
-                context.SaveChanges();
 
-                return Redirect("/Employer");
+                if (ModelState.IsValid)
+                {
+                    Employer newEmployer = new Employer
+                    {
+                        Name = viewModel.Name,
+                        Location = viewModel.Location,
+                    };
+                    context.Employers.Add(newEmployer);
+                    context.SaveChanges();
+
+                    return Redirect("/Employer");
+                }
+                return View("Add", viewModel);
             }
-            return View(addEmployerViewModel);
-        }
-        public IActionResult ProcessAddEmployerForm()
-        {
-            return View();
         }
 
         public IActionResult About(int id)
         {
-            return View();
+            List<Employer> employers = context.Employers
+                .Where(em => em.Id == id)
+                .ToList();
+
+            return View(employers);
         }
 
         

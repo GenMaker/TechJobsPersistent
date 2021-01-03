@@ -4,29 +4,18 @@
 
 <h1>Add New Employer</h1>
 
-<form asp-controller="Employer" asp-action="Add" method="post">
+
+<form asp-controller="Employer" asp-action="ProcessAddEmployerForm" method="post">
     <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name"/>
+        <label>Name</label>
+        <input name="name" type ="text" class="form-control"/>
         <span asp-validation-for="Name"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Location"></label>
-        <input asp-for="Location" />
+        <label>Location</label>
+        <input name="location" type ="text" class="form-control" />
         <span asp-validation-for="Location"></span>
     </div>
-    <input type="submit" value="Add Employer" />
+    <input type="submit" value="Submit" />
 </form>
 
-@*// original code in this file*@
-@*<form asp-controller="Employer" asp-action="ProcessAddEmployerForm" method="post">
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Location"></label>
-        <input asp-for="Location" />
-    </div>
-    <input type="submit" value="Submit" />
-</form>*@
